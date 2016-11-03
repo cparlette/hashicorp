@@ -2,7 +2,7 @@
 
 This project will utilize various tools from Hashicorp (currently Packer, Terraform, and Consul) to deploy a set of web servers behind a load balancer.
 
-## Pre-requisites
+## Prerequisites
 
 ### Install Terraform
 
