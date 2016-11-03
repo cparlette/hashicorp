@@ -19,19 +19,26 @@ This current project uses [Packer2Terraform](https://github.com/saymedia/packer2
 ### Set up credentials
 
 
+
 ## Building the Environment
 
 ### Build the base image with Packer
 
+```
 packer -machine-readable build packer-ubuntu_with_nginx_consul_php.json | packer2terraform > packer_amis.tf
+```
 
 ### See what Terraform will do
 
+```
 terraform plan
+```
 
 ### Execute the Terraform plan
 
+```
 terraform apply
+```
 
 ## End result
 
