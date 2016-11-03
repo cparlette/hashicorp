@@ -30,6 +30,15 @@ For Packer to work properly, you'll have to proved the AWS access_key and secret
 packer -machine-readable build packer-ubuntu_with_nginx_consul_php.json | packer2terraform > packer_amis.tf
 ```
 
+This will take a base image of Ubuntu and perform the following steps:
+- Update all installed packages
+- Install Nginx, Unzip, and PHP5-fpm
+- Download Consul and Consul-template and put the binaries in /usr/bin
+- Download Upstart config files to run consul as a service
+- Download PHP and Nginx configs to show a simple webpage
+
+The AMI that is generated will be stored in a Terraform-friendly format.
+
 ### See what Terraform will do
 
 ```
@@ -45,13 +54,13 @@ terraform apply
 ## End result
 
 This will fully deploy an environment in AWS with the following items:
-VPC
-Internet Gateway
-Routes
-Subnets
-Security Groups
-ELB
-Keypair
-EC2 instances
+- VPC
+- Internet Gateway
+- Routes
+- Subnets
+- Security Groups
+- ELB
+- Keypair
+- EC2 instances
 
 There will be 3 EC2 instances behind the ELB that all have Nginx installed.  These 3 servers all serve a basic PHP page that displays the server's IP address to show the load balancer working.  These 3 EC2 instances all have Consul agents running as well, and have all been joined as members to the same Consul cluster.
