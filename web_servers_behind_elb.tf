@@ -162,6 +162,7 @@ resource "aws_instance" "web" {
       "sudo service nginx start",
       "sudo start consul-server",
       "sudo start consul-template",
+      "sleep 30",
       "echo ${aws_instance.web.0.public_ip} > consul_master.txt",
       "consul join `cat consul_master.txt`"
     ]
