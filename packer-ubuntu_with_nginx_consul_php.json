@@ -1,0 +1,38 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "us-east-1",
+    "source_ami": "ami-408c7f28",
+    "instance_type": "t1.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "packer-ubuntu_with_nginx_consul_php {{timestamp}}"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "sleep 30",
+      "sudo apt-get update -y",
+      "sudo apt-get install -y nginx unzip php5-fpm",
+      "wget https://releases.hashicorp.com/consul/0.7.0/consul_0.7.0_linux_amd64.zip",
+      "unzip consul_0.7.0_linux_amd64.zip",
+      "sudo mv consul /usr/bin/consul",
+      "wget https://releases.hashicorp.com/consul-template/0.16.0/consul-template_0.16.0_linux_amd64.zip",
+      "unzip consul-template_0.16.0_linux_amd64.zip",
+      "sudo mv consul-template /usr/bin/consul-template",
+      "wget https://www.dropbox.com/s/8kg25g9owmd6tju/consul-server.conf?dl=0",
+      "sudo mv consul-server.conf?dl=0 /etc/init/consul-server.conf",
+      "wget https://www.dropbox.com/s/1lkjhqvvuy624zo/consul-template.conf?dl=0",
+      "sudo mv consul-template.conf?dl=0 /etc/init/consul-template.conf",
+      "wget https://www.dropbox.com/s/j23ug1csjq28ydh/default?dl=0",
+      "sudo mv default?dl=0 /etc/nginx/sites-available/default",
+      "wget https://www.dropbox.com/s/zz92lk2wv9n0k8x/index.php?dl=0",
+      "sudo mv index.php?dl=0 /usr/share/nginx/html/index.php"
+    ]
+  }]
+}
