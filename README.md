@@ -18,7 +18,9 @@ This current project uses [Packer2Terraform](https://github.com/saymedia/packer2
 
 ### Set up credentials
 
+The "credentials.tfvars" file has 4 values that need to be set for your connection.  The "access_key" and "secret_key" values can be obtained from your AWS account.  The "public_key_path" and "key_name" values will be used for SSH access to the EC2 instances that get built by Terraform.
 
+For Packer to work properly, you'll have to proved the AWS access_key and secret_key at the top of the packer-ubuntu_with_nginx_consul_php.json file.
 
 ## Building the Environment
 
